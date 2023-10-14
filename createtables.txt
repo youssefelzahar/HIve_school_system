@@ -1,0 +1,116 @@
+set hive.support.concurrency = true;
+set hive.enforce.bucketing = true;
+set hive.exec.dynamic.partition.mode = nonstrict;
+set hive.txn.manager =
+org.apache.hadoop.hive.ql.lockmgr.DbTxnManager;
+set hive.compactor.initiator.on = true;
+
+hive> create table enroll
+    > (id int,
+    > name string,
+    > mail string,
+    > mob int,
+    > course string ,
+    > status string ,
+    > payment_mode string ,
+    > tal_installment int,
+    > nstallment_paid int,
+    > Next_installment_date string,
+    > payment_status string,
+    > installment_left int,
+    > last_fee int)
+    > row format delimited
+    > fields terminated by ','
+    > stored as textfile ;
+LOAD DATA LOCAL INPATH '/home/maria_dev/enroll.csv' OVERWRITE INTO TABLE enroll ;
+
+
+hive> create table batch_distribution
+    >
+    > (id int,
+    > name string,
+    > mail string ,
+    > mob int ,
+    > course string ,
+    > joining_data string ,
+    > week_day string ,
+    > day string ,
+    > time string )
+    > row format delimited
+    > fields terminated by ','
+    > stored as textfile ;
+
+LOAD DATA LOCAL INPATH '/home/maria_dev/batch_distribution.csv' OVERWRITE INTO TABLE batch_distribution ;
+
+
+hive> create table demo_missing
+    >
+    > (id int,
+    > name string,
+    > mail string ,
+    > mob int ,
+    > course string ,
+    > reschedule_date  string ,
+    > time string )
+    > row format delimited
+    > fields terminated by ','
+    > stored as textfile ;
+
+
+LOAD DATA LOCAL INPATH '/home/maria_dev/demo_missed.csv' OVERWRITE INTO TABLE demo_missing ;
+
+
+  create table enq
+   (id int ,
+     name string,
+     mail string ,
+     mob bigint ,
+     course string ,
+     fee int ,
+     discount int ,
+     dte string ,
+     status string ,
+     status_final string )
+     clustered by (id) into 2 buckets
+     row format delimited
+     fields terminated by ','
+     STORED AS orc tblproperties ("transactional"='true');
+
+insert into table enq select * from enqui;
+
+
+ create table enqui
+   (id int ,
+     name string,
+     mail string ,
+     mob bigint ,
+     course string ,
+     fee int ,
+     discount int ,
+     dte string ,
+     status string ,
+     status_final string )
+     clustered by (id) into 2 buckets
+     row format delimited
+     fields terminated by ','
+     STORED AS textfile;
+
+LOAD DATA LOCAL INPATH '/home/maria_dev/enquiry.csv' OVERWRITE INTO TABLE enqui ;
+
+ create table demo_schedule
+   (id int ,
+     name string,
+     mail string ,
+     mob bigint ,
+     course string ,
+     demoday string ,
+     day string ,
+     dte string ,
+     time string )
+    
+     row format delimited
+     fields terminated by ','
+     STORED AS textfile;
+
+LOAD DATA LOCAL INPATH '/home/maria_dev/demo_schedule.csv' OVERWRITE INTO TABLE demo_schedule ;
+

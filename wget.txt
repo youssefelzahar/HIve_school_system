@@ -1,0 +1,9 @@
+wget https://raw.githubusercontent.com/6618karan/Hive-Project/main/Dataset/batch_distribution.csv
+
+wget https://raw.githubusercontent.com/6618karan/Hive-Project/main/Dataset/demo_missed.csv
+
+wget https://raw.githubusercontent.com/6618karan/Hive-Project/main/Dataset/demo_schedule.csv
+
+wget https://raw.githubusercontent.com/6618karan/Hive-Project/main/Dataset/enquiry.csv
+
+wget https://raw.githubusercontent.com/6618karan/Hive-Project/main/Dataset/enroll.csv
